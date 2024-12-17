@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqav3gbypxjdl"]
+
+[ext_resource type="Script" path="res://Scripts/game_menu.gd" id="1_y44ti"]
+[ext_resource type="PackedScene" uid="uid://4swfeyxnrcdc" path="res://Scenes/game.tscn" id="2_yfgv0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tglea"]
+bg_color = Color(0, 0.644021, 0.920416, 1)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y44ti")
+game_scn = ExtResource("2_yfgv0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 644.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tglea")
+
+[node name="title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = -22.0
+offset_right = 992.0
+offset_bottom = 473.0
+theme_override_font_sizes/font_size = 55
+text = "Pump And Exit
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConnectButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 402.0
+offset_right = 760.0
+offset_bottom = 521.0
+theme_override_font_sizes/font_size = 55
+text = "Connect Wallet"
+
+[connection signal="pressed" from="ConnectButton" to="." method="_on_connect_button_pressed"]

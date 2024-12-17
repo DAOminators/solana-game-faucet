@@ -1,0 +1,188 @@
+[gd_scene load_steps=16 format=3 uid="uid://4swfeyxnrcdc"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_g2gwr"]
+[ext_resource type="MeshLibrary" uid="uid://do35ns8qlqqa7" path="res://gridmapmeshes.tres" id="1_jojv3"]
+[ext_resource type="PackedScene" uid="uid://c12opxdw0hcmf" path="res://Assets/Atm/atm.glb" id="4_axexp"]
+[ext_resource type="PackedScene" uid="uid://bqqqpopup48tx" path="res://Scenes/coin.tscn" id="4_d7klo"]
+[ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Assets/Player/player.tscn" id="6_ob2x1"]
+[ext_resource type="Script" path="res://Scripts/atm.gd" id="6_utr7b"]
+[ext_resource type="Script" path="res://Scripts/GameOverUI.gd" id="7_sao20"]
+[ext_resource type="Script" path="res://Scripts/CashoutUI.gd" id="8_hpara"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mefsh"]
+sky_top_color = Color(0.901961, 0.807843, 0.776471, 1)
+sky_horizon_color = Color(0.862745, 0.814706, 0.805882, 1)
+sky_energy_multiplier = 0.7
+ground_bottom_color = Color(0.54902, 0.45098, 0.447059, 1)
+ground_horizon_color = Color(0.862745, 0.814706, 0.805882, 1)
+
+[sub_resource type="Sky" id="Sky_ds74o"]
+sky_material = SubResource("ProceduralSkyMaterial_mefsh")
+
+[sub_resource type="Environment" id="Environment_is7yf"]
+background_mode = 2
+sky = SubResource("Sky_ds74o")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxc0a"]
+size = Vector3(2.34577, 5.07737, 2.69003)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2hi0f"]
+radius = 1.45124
+height = 6.48986
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7nyt"]
+bg_color = Color(0.807843, 0.329412, 0.407843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svbxv"]
+bg_color = Color(0.447059, 0.721569, 0.341176, 1)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_g2gwr")
+starting_price = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_is7yf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -1.59451, 0)
+mesh_library = ExtResource("1_jojv3")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 0, 1, 65535, 65535, 4, 0, 65535, 4, 0, 0, 3, 1, 0, 4, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 4, 6, 65535, 3, 5, 65535, 4, 4, 65535, 3, 3, 65535, 4, 2, 65535, 4, 1, 65535, 3, 65534, 65535, 3, 65534, 65534, 3, 65534, 65533, 4, 65534, 65532, 4, 65535, 65532, 4, 65535, 65531, 3, 0, 65531, 3, 1, 65531, 4, 2, 65531, 1, 2, 65532, 4, 2, 65533, 4, 2, 65534, 3, 1, 65534, 3, 0, 65534, 4, 65535, 65534, 3, 65535, 65533, 4, 0, 65533, 3, 1, 65533, 4, 1, 65532, 3, 0, 65532, 4, 5, 1, 4, 4, 1, 3, 3, 1, 3, 2, 1, 3, 2, 2, 0, 2, 3, 4, 3, 3, 3, 3, 4, 3, 3, 5, 4, 4, 5, 4, 4, 4, 3, 5, 3, 3, 5, 2, 0, 4, 2, 2, 3, 2, 0, 4, 3, 4, 5, 4, 4, 5, 5, 3, 2, 4, 4, 65530, 65533, 4, 65530, 65534, 3, 65530, 65535, 3, 65531, 65535, 4, 65532, 65535, 3, 65532, 65534, 4, 65531, 65534, 4, 65531, 65533, 4, 65533, 65534, 3, 65533, 65535, 4, 65534, 0, 1, 65533, 0, 1, 65532, 0, 1, 65531, 0, 1, 65530, 0, 1, 65529, 0, 1, 65529, 65535, 1, 65529, 65534, 1, 65529, 65533, 1, 65529, 65532, 1, 65530, 65532, 1, 65531, 65532, 1, 65532, 65532, 1, 65532, 65533, 1, 65533, 65533, 1, 65533, 65532, 1, 65533, 65531, 1, 65534, 65531, 1, 65534, 65530, 1, 65535, 65530, 1, 0, 65530, 1, 1, 65530, 1, 2, 65530, 1, 3, 65531, 1, 3, 65532, 1, 3, 65533, 1, 3, 65534, 1, 4, 65534, 1, 5, 65534, 1, 6, 65534, 1, 7, 65534, 1, 7, 65535, 1, 7, 0, 1, 7, 1, 1, 6, 1, 1, 6, 2, 1, 6, 3, 1, 6, 4, 1, 6, 5, 1, 6, 6, 1, 5, 6, 1, 4, 6, 1, 3, 6, 1, 2, 6, 1, 2, 5, 1, 1, 5, 1, 1, 4, 1, 1, 3, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 65535, 1, 1)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Coin" parent="." instance=ExtResource("4_d7klo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35438, -10.5159)
+
+[node name="Player" parent="." instance=ExtResource("6_ob2x1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.32046)
+
+[node name="AtmModel" type="StaticBody3D" parent="."]
+transform = Transform3D(0.117364, 0, -0.993089, 0, 1, 0, 0.993089, 0, 0.117364, 7.13252, 0, -6.10518)
+
+[node name="Mesh" parent="AtmModel" instance=ExtResource("4_axexp")]
+script = ExtResource("6_utr7b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AtmModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54086, 0)
+shape = SubResource("BoxShape3D_cxc0a")
+
+[node name="AtmInteractionZone" type="Area3D" parent="AtmModel"]
+script = ExtResource("6_utr7b")
+
+[node name="Collider" type="CollisionShape3D" parent="AtmModel/AtmInteractionZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.221041, 1.89807, 1.87036)
+shape = SubResource("CapsuleShape3D_2hi0f")
+
+[node name="GameOverUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("7_sao20")
+
+[node name="Panel" type="Panel" parent="GameOverUI"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y7nyt")
+
+[node name="Label" type="Label" parent="GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.0
+offset_top = -182.0
+offset_right = 432.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "The token dumped and you
+ are down bad ;("
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="GameOverUI"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 375.0
+offset_right = 807.0
+offset_bottom = 488.0
+theme_override_font_sizes/font_size = 51
+text = "Try again"
+
+[node name="CashoutUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("8_hpara")
+
+[node name="Panel" type="Panel" parent="CashoutUI"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_svbxv")
+
+[node name="Label" type="Label" parent="CashoutUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -431.0
+offset_top = -248.0
+offset_right = 437.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "Congratulations on cashing out 
+and becoming rich!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndResult" type="Label" parent="CashoutUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -434.0
+offset_top = -53.0
+offset_right = 434.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "Final Cashout price: 215.5$"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CashoutUI"]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 422.0
+offset_right = 809.0
+offset_bottom = 535.0
+theme_override_font_sizes/font_size = 51
+text = "Do Better"
+
+[connection signal="body_entered" from="AtmModel/AtmInteractionZone" to="AtmModel/AtmInteractionZone" method="_on_body_entered"]
+[connection signal="body_exited" from="AtmModel/AtmInteractionZone" to="AtmModel/AtmInteractionZone" method="_on_body_exited"]
+[connection signal="pressed" from="GameOverUI/Button" to="GameOverUI" method="_on_button_pressed"]
+[connection signal="pressed" from="CashoutUI/Button" to="CashoutUI" method="_on_button_pressed"]
